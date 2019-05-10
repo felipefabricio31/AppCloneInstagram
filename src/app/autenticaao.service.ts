@@ -43,6 +43,10 @@ export class Autenticacao {
                     .then((idToken: string) => {
                         //Recupera o token
                         this.token_id = idToken
+
+                        //Grava o idToken dentro do localStorage
+                        localStorage.setItem('idToken', idToken)
+
                         //redireciona  para o componente Hom
                         this.router.navigate(['/home'])
                     })
@@ -54,7 +58,28 @@ export class Autenticacao {
 
     public autenticado(): boolean {
 
+        //Verificar caso o token esteja definido, verificar no localstorage se existe algum token
+        if (this.token_id === undefined && localStorage.getItem('idToken') !== null) {
+            this.token_id = localStorage.getItem('idToken')
+        }
+
+        if(this.token_id === undefined)
+        {
+            this.router.navigate(['/'])
+        }
+
         //Retorna true se for diferente e false se for indefinido
         return this.token_id !== undefined
+    }
+
+    public sair(): void {
+
+        firebase.auth().signOut()
+            .then(() => {
+                //Remove o token do localStorage
+                localStorage.removeItem('idToken')
+                this.token_id = undefined
+                this.router.navigate(['/'])
+            })
     }
 }
