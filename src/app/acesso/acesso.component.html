@@ -5,12 +5,17 @@
     </div>
 
     <div class="col-sm-6 d-flex justify-content-start" [@animacao-painel]="estadoPainel">
+
       <div *ngIf="cadastro === true; else formLogin">
-        <app-cadastro (exibirPainel)="exibirPainel($event)"></app-cadastro>
+        <app-cadastro (exibirPainel)="exibirPainel($event)" 
+        (@animacao-painel.start)="inicioDaAnimacao()"
+          (@animacao-painel.done)="fimDaAnimacao()"></app-cadastro>
       </div>
       <!--else-->
       <ng-template #formLogin>
-        <app-login (exibirPainel)="exibirPainel($event)"></app-login>
+        <app-login (exibirPainel)="exibirPainel($event)" 
+        (@animacao-painel.start)="inicioDaAnimacao()"
+          (@animacao-painel.done)="fimDaAnimacao()">></app-login>
       </ng-template>
 
     </div>
