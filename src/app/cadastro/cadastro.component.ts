@@ -1,6 +1,7 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Usuario} from '../acesso/usuario.model'
+import { Autenticacao } from '../autenticaao.service';
 
 
 @Component({
@@ -20,7 +21,9 @@ export class CadastroComponent implements OnInit {
     'senha': new FormControl(null)
   })
 
-  constructor() { }
+  constructor(
+    private autenticacao: Autenticacao
+  ) { }
 
   ngOnInit() {
   }
@@ -39,7 +42,9 @@ export class CadastroComponent implements OnInit {
       this.formulario.value.nome_usuario,
       this.formulario.value.senha
     )
-    console.log(usuario)
+    //console.log(usuario)
+
+    this.autenticacao.cadastrarUsuario(usuario)
 
     //Proximo passo
     //Transferir os dados para um serviço, que terá uma camada que se comunicará com o firebase
