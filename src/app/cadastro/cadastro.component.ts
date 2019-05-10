@@ -45,6 +45,10 @@ export class CadastroComponent implements OnInit {
     //console.log(usuario)
 
     this.autenticacao.cadastrarUsuario(usuario)
+      .then(() => {
+        this.exibirPainelLogin()
+      })
+
 
     //Proximo passo
     //Transferir os dados para um serviço, que terá uma camada que se comunicará com o firebase
