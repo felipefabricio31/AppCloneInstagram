@@ -13,8 +13,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
   }
 
-  public sair(): void
-  {
+  public sair(): void {
     this.autenticacao.sair()
   }
 
